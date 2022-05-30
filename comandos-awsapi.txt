@@ -1,0 +1,128 @@
+* Iniciar Proyecto AWS API
+> composer create-project laravel/laravel awsapi
+* Crea direcionamiento al servidor Apache para omitir el link public
+1.- Ejecutar como administrador Notepad, abrir el archivo hosts en C:\Windows\System32\drivers\etc y agregar:
+127.0.0.1	awsapi.test
+2.- Abrir el archivo como texto en C:\xampp\apache\conf\extra
+<VirtualHost *>
+	DocumentRoot "C:\xampp\htdocs\awsapi\public"
+	ServerName awsapi.test
+	<Directory "C:\xampp\htdocs\awsapi\public">
+		Options All
+		AllowOverride All
+		Require all granted
+	</Directory>
+</VirtualHost>
+* Luego el link para navegar sería http://awsapi.test/
+---------------------------------------------------------------------------------------------------
+Esta linea de codigo si no existe se agrega por unica vez en este archivo de txt luego restart el servicio de Xampp apache.
+NameVirtualHost *
+<VirtualHost *>
+	DocumentRoot "C:\xampp\htdocs"
+	ServerName localhost
+</VirtualHost>
+---------------------------------------------------------------------------------------------------
+* Crear BD en http://localhost/phpmyadmin/ y configurar el nombre en .env y creamos la migración de los archivos por defectos que genera Laravel.
+> php artisan migrate
+---------------------------------------------------------------------------------------------------
+* Crear en la BD la tabla 'products' y el models Product se creara en database>migrations>2022_04_14_072101_create_products_table.php
+> php artisan make:model Product --migration
+* después de crear el archivo debemos agregar los atributos de la clase que va a usar como id/name/price/description en app>Http>Models>Product.php
+protected $fillable = ['name', 'slug', 'description', 'price'];
+* Ya creados los atributos de la clase Product, hacemos la migración de esta con el siguiente comando.
+> php artisan migrate
+---------------------------------------------------------------------------------------------------
+* Crearemos el controlador de Product para asignar el crud con el -r o --resource ubicada en app>Http>Controllers>ProductController.php
+> php artisan make:controller ProductController --resource
+* Agregamos el Model y usaremos index() para mostrar [GET], store(Request $request) para crear [POST], show($id) para mostrar 1 registro [GET], 
+* update(Request $request, $id) para actualizar [PUT], destroy($id) para eliminar [Delete] y adicional un buscador, search($name) para buscar por nombre.
+use App\Models\Product;
+---------------------------------------------------------------------------------------------------
+* Crear Swagger para la tabla Product
+# Installing Laravel Swagger Package
+https://github.com/DarkaOnLine/L5-Swagger/wiki/Installation-&-Configuration
+----------------------------------------------------------------------------------------------------------
+* 1.- Instalación de Swagger 7.x and 8.x
+> composer require darkaonline/l5-swagger
+> php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"
+----------------------------------------------------------------------------------------------------------
+* 2.1. - Open your AppServiceProvider (located in app/Providers) and add this line in register function
+$this->app->register(\L5Swagger\L5SwaggerServiceProvider::class);
+* 2.2.- or open your config/app.php and add this line in providers section
+L5Swagger\L5SwaggerServiceProvider::class,
+----------------------------------------------------------------------------------------------------------
+* 3.- Pegar en el archivo .env debajo de APP_URL=
+L5_SWAGGER_CONST_HOST=http://project.test/api/v1
+L5_SWAGGER_CONST_HOST=http://awsapi.test
+----------------------------------------------------------------------------------------------------------
+* 4.- Pegar en Controllers debajo de los use, app>Http>Controllers>Controller.php 
+/** 
+    * @OA\Info(
+    *      version="1.0.0",
+    *      title="API Swagger Documentation - Integración de Plataforma",
+    *      description="L5 Swagger Tablas para la integración de Micro Servicios",
+    *      @OA\Contact(
+    *          email="c.rigollet@duocuc.cl"
+    *      ),
+    *      @OA\License(
+    *          name="Apache 2.0",
+    *          url="http://www.apache.org/licenses/LICENSE-2.0.html"
+    *      )
+    * )
+    *
+    * @OA\Server(
+    *      url=L5_SWAGGER_CONST_HOST,
+    *      description="PCFantasy API Server"
+    * )
+*/
+----------------------------------------------------------------------------------------------------------
+# con esta otra opción tengo para auth token
+/**
+ * @OA\Info(
+ *    title="APIs For Thrift Store",
+ *    version="1.0.0",
+ * ),
+ *   @OA\SecurityScheme(
+ *       securityScheme="bearerAuth",
+ *       in="header",
+ *       name="bearerAuth",
+ *       type="http",
+ *       scheme="bearer",
+ *       bearerFormat="JWT",
+ *    ),
+ */
+----------------------------------------------------------------------------------------------------------
+* 4.- Pegar en el controlador a documentar en este caso Products, es importante crear el crud y sus metodos return.
+/**
+ *  @OA\Post(
+ *      path="/api/products",
+ *      summary="Products data",
+ *      description="",
+ *      tags={"Product"},
+ *      @OA\Parameter(
+ *          name="name",
+ *          in="query",
+ *          description="Send the access_token recived from google after successfull auth",
+ *          required=true,
+ *      ),
+ *      @OA\Response(
+ *          response=200,
+ *          description="OK",
+ *          @OA\MediaType(
+ *              mediaType="application/json",
+ *          )
+ *      ),
+ *  )
+ */
+----------------------------------------------------------------------------------------------------------
+* 5.- En routes>api.php generamos los points 
+//Public Routes
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::get('/products/search/{name}', [ProductController::class, 'search']);
+Route::post('/products', [ProductController::class, 'store']);
+Route::put('/products/{id}', [ProductController::class, 'update']);
+Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+----------------------------------------------------------------------------------------------------------
+* 6.- Para finalizar se debiera registrar ya el controlador.
+> php artisan l5-swagger:generate

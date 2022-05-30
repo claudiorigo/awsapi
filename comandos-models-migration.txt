@@ -1,0 +1,86 @@
+# Modelo Category con la tabla categories y un seeder para agregar datos ramdom.
+* creare la tabla "categories" para esto primero crearemos el modelo "Category".
+* Aparte de crear el modelo vamos a pedir que nos cree las migraciones con -m 
+* Y que nos cree un seeder para introducir cierta cantidad de registros a esta tabla con -s quedando ambas en -ms
+→ -m la migración que ha creado esta en database>migrations>2022_05_07_064912_create_categories_table.php
+→ -s el seeders lo crea en database>seeders>CategorySeeder.php
+→ el (make:model Category) es creado en app>Models>Category.php
+> php artisan make:model Category -ms
+* Después entramos a la migrations database>migrations>2022_05_07_064912_create_categories_table.php para agregar 
+* los atributos definidos en nuesta BD ER de la tabla categories > name, slug, image, icon > 
+$table->string('name');
+$table->string('slug');
+$table->string('image');
+$table->string('icon');
+* Luego nos dirigimos a ese model Category app>Models>Category.php para habilitar la asignación masiva para este modelo.
+> protected $fillable = ['name', 'slug', 'image', 'icon'];
+---------------------------------------------------------------------------------------------------
+* Prodiamos haber creado la categories con factories con haber puesto al final una f quedando así
+> php artisan make:model Category -msf
+* Pero como ya se creo ahora podemos crear un Factory de este modelo de la siguiente manera.
+> php artisan make:factory CategoryFactory
+---------------------------------------------------------------------------------------------------
+* Recordar cambiar en config>filesystems.php el default de local a problic.
+'default' => env('FILESYSTEM_DRIVER', 'public'),
+---------------------------------------------------------------------------------------------------
+* Con este comando podremos crear las migraciones sin borrar la tabla de Product y solo crea migración de la tabla categories o del Models Category
+> php artisan migrate
+---------------------------------------------------------------------------------------------------
+* Debemos crear el link de Storage, para poder hacer la migración de las imagenes fake()
+> php artisan storage:link
+---------------------------------------------------------------------------------------------------
+* Luego ya podremos ajecutar los seeders con el siguiente comando. asi podra crear las imagenes fake() en las carpetas
+> php artisan db:seed
+---------------------------------------------------------------------------------------------------
+* Solo si se necesita volcar la BD en su totalidad usaremos el siguiente comando y al final activando los seeders con --seed
+> php artisan migrate:fresh --seed
+---------------------------------------------------------------------------------------------------
+# Para la creación de los datos dentro de MySQL en la parte de la tabla product → pegar en SQL.
+---------------------------------------------------------------------------------------------------
+INSERT INTO `products` (`id`, `name`, `slug`, `description`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
+(NULL, 'iPhone 12 Pro', 'iphone-12-pro', 'Este es un iphone 12 pro', '100.001', '10', now(), now()),
+(NULL, 'Huawei P40 Lite', 'huawei-p40-lite', 'Este es un huawei p40 lite', '200.000', '30', now(), now()),
+(NULL, 'Samsung S20 Plus', 'samsung-s20-plus', 'Este es un samsung s20 plus', '300.000', '55', now(), now()),
+(NULL, 'Xiaomi Note 11T', 'xiaomi-note-11t', 'Este es un xiaomi note 11t', '400.000', '43', now(), now()),
+(NULL, 'Sony Xperia L2', 'sony-xperia-l2', 'Este es un sony xperia l2', '500.000', '86', now(), now()),
+(NULL, 'Nokia C1 Plus', 'nokia-c1-plus', 'Este es un nokia c1 plus', '600.000', '28', now(), now()),
+(NULL, 'Motorola Moto G200', 'motorola-moto-g200', 'Este es un motorola moto g200', '700.000', '12', now(), now()),
+(NULL, 'iPhone 13 Pro Max', 'iphone-13-pro-max', 'Este es un iphone 13 pro max', '800.000', '05', now(), now()),
+(NULL, 'Samsung Galaxy A03', 'samsung-galaxy-a03', 'Este es un samsung galaxy a03', '900.000', '74', now(), now()),
+(NULL, 'Samsung Galaxy S22 Ultra', 'samsung-galaxy-s22-ultra', 'Este es un samsung galaxy s22 ultra', '150.000', '81', now(), now()),
+(NULL, 'iPhone 11 Pro', 'iphone-11-pro', 'Este es un iphone 11 pro', '250.000', '27', now(), now()),
+(NULL, 'Producto Actualizado Swagger', 'producto-actualizado-swagger', 'Producto actualizado Swagger', '120.000', '44', now(), now()),
+(NULL, 'Nombre de Producto Uno', 'nombre-de-producto-uno', 'Descripción de producto uno', '126.000', '16', now(), now());
+---------------------------------------------------------------------------------------------------
+* Crearemos el Controlador para Category asi poder crear el crud
+> php artisan make:controller CategoryController --resource
+---------------------------------------------------------------------------------------------------
+* Crear Seeder para usuario.
+>  php artisan make:seeder UserSeeder
+public function run(){
+    User::create([
+        'name' => 'Claudio Rigollet',
+        'email' => 'claudiorigo@gmail.com',
+        'password' => bcrypt('12345678')
+    ]);
+}
+---------------------------------------------------------------------------------------------------
+# Ya se subierón las dos tablas a cpanel products, categories funcionando en un crud para Swagger.
+---------------------------------------------------------------------------------------------------
+* Crearemos el modelo Subcategory m→Modelo f→Factory s→Seeders y tambien la tabla database>migrations>2022_05_29_012636_create_subcategories_table.php
+> php artisan make:model Subcategory -mfs
+* Crearemos el Controlador de este Modelo con su Crud para eso usamos --resource.
+> php artisan make:controller SubcategoryController --resource
+---------------------------------------------------------------------------------------------------
+* Crearemos seeder y factories para el modelo products
+> php artisan make:factory ProductFactory
+> php artisan make:seeder ProductSeeder
+---------------------------------------------------------------------------------------------------
+# Modelo Image, con migración y factory
+> php artisan make:model Image -mf
+$table->string('url');
+$table->unsignedBigInteger('imageable_id');
+$table->string('imageable_type');
+> php artisan migrate:fresh --seed
+
+
