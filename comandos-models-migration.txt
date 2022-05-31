@@ -82,5 +82,11 @@ $table->string('url');
 $table->unsignedBigInteger('imageable_id');
 $table->string('imageable_type');
 > php artisan migrate:fresh --seed
-
+---------------------------------------------------------------------------------------------------
+# Crear tabla Ventas con su modelo, factories y seeder
+> php artisan make:model Sale -mfs
+* Crear el Controlador para la tabla ventas y el crud
+> php artisan make:controller SaleController --resource
+* Crear el Controlador para el CRUD de usuarios.
+> php artisan make:controller UserController --resource
 

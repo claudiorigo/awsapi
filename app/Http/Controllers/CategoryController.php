@@ -95,7 +95,7 @@ class CategoryController extends Controller
             $category = Category::find($id);
             $category->update($request->all());
             //return response()->json($category);
-            return response()->json(['message'=>'Categoría eliminada con éxisto','data'=>$category],200);       
+            return response()->json(['message'=>'Categoría actualizada con éxisto','data'=>$category],200);       
         }catch (ModelNotFoundException $exception){
             return response()->json(["message"=>$exception->getMessage()],404);
         }
@@ -113,6 +113,6 @@ class CategoryController extends Controller
         $category = Category::destroy($id);
         //return response()->json($category,(["message"=>"Categoría eliminada con éxisto"]));
         //return response()->json(['status'=>'ok','data'=>$fabricante],200);
-        return response()->json(['message'=>'Categoría actualizada con éxisto','data'=>$category],200);
+        return response()->json(['message'=>'Categoría eliminada con éxisto','data'=>$category],200);
     }
 }

@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
     *               @OA\Property(property="description", type="string", example="Descripción de producto"),
     *               @OA\Property(property="price", type="float", example="1000"),
     *               @OA\Property(property="quantity", type="number", example="45"),
+    *               @OA\Property(property="subcategory_id", type="number", example="5"),
     *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *           )
@@ -49,6 +50,7 @@ use Illuminate\Http\Request;
     *                       @OA\Property(property="description", type="string",example="Ejemplo de descripción"),
     *                       @OA\Property(property="price", type="float", example="1000"),
     *                       @OA\Property(property="quantity", type="number", example="45"),
+    *                       @OA\Property(property="subcategory_id", type="number", example="5"),
     *                       @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *                       @OA\Property(property="created_at",type="date", example="2022-05-21T00:43:54.000000Z")
     *                   )
@@ -77,6 +79,7 @@ use Illuminate\Http\Request;
     *                   @OA\Property(property="description",type="string"),
     *                   @OA\Property(property="price",type="float"),
     *                   @OA\Property(property="quantity",type="number"),
+    *                   @OA\Property(property="subcategory_id", type="number"),
     *                 ),
     *                 example={
     *                     "name":"Nombre de Producto",
@@ -84,6 +87,7 @@ use Illuminate\Http\Request;
     *                     "description":"Descripción de Producto",
     *                     "price":"100.000",
     *                     "quantity":"45",
+    *                     "subcategory_id":"5",
     *                }
     *             )
     *         )
@@ -98,6 +102,7 @@ use Illuminate\Http\Request;
     *              @OA\Property(property="description", type="string", example="Descripción de Producto"),
     *              @OA\Property(property="price", type="float", example="1000"),
     *              @OA\Property(property="quantity", type="number", example="45"),
+    *              @OA\Property(property="subcategory_id", type="number", example="5"),
     *              @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *              @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *          )
@@ -122,6 +127,7 @@ use Illuminate\Http\Request;
     *                   @OA\Property(property="description", type="string"),
     *                   @OA\Property(property="price", type="float"),
     *                   @OA\Property(property="quantity", type="number"),
+    *                   @OA\Property(property="subcategory_id", type="number"),
     *                 ),
     *                 example={
     *                     "name":"Actualiza Nombre",
@@ -143,6 +149,7 @@ use Illuminate\Http\Request;
     *               @OA\Property(property="description", type="string", example="Actualizar Descripción"),
     *               @OA\Property(property="price", type="float", example="900.000"),
     *               @OA\Property(property="quantity", type="number", example="45"),
+    *               @OA\Property(property="subcategory_id", type="number", example="5"),
     *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z")
     *          )
@@ -187,6 +194,7 @@ use Illuminate\Http\Request;
     *           @OA\Property(property="slug", type="string", example="nombre-producto"),
     *           @OA\Property(property="description", type="string", example="Descripción de producto"),
     *           @OA\Property(property="price", type="float", example="1000"),
+    *           @OA\Property(property="subcategory_id", type="number", example="5"),
     *           @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *           @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *       )
@@ -352,6 +360,503 @@ use Illuminate\Http\Request;
     *       description="success",
     *       @OA\JsonContent(
     *           @OA\Property(property="message", type="string", example="Categoría eliminada con éxito"),
+    *           @OA\Property(property="data", type="number", example="1")
+    *       )
+    *   )
+    * ),    
+    *
+    *
+    *************************************************************************************************
+    * # Subcategorías
+    *************************************************************************************************
+    *
+    * @OA\Get (
+    *       path="/api/subcategories/{id}",
+    *       operationId="getSubcategoryById",
+    *       tags={"subcategorías"},
+    *       summary="Muestra una subcategoría por id",
+    *       description="Retorna un registro por id",
+    *       @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="integer")),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="name", type="string", example="Nombre Subcategoría"),
+    *               @OA\Property(property="slug", type="string", example="nombre-subcategoría"),
+    *               @OA\Property(property="image", type="string", example="https://claudiorigollet.cl/categories/celular-tablet.webp"),
+    *               @OA\Property(property="color", type="boolean", example="1"),
+    *               @OA\Property(property="size", type="boolean", example="0"),
+    *               @OA\Property(property="category_id", type="number", example="1"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *           )
+    *       ),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Producto no existe"),))
+    * ),
+    * @OA\Get (
+    *   path="/api/subcategories",
+    *   operationId="getSubcategoriesList",
+    *   tags={"subcategorías"},
+    *   summary="Listar todas las subcategorías",
+    *   description="Retorna lista de subcategorías",
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(type="array", property="subcategory",
+    *                   @OA\Items(type="object",
+    *                       @OA\Property(property="id", type="number", example="1"),
+    *                       @OA\Property(property="name", type="string", example="Ejemplo Nombre Subcategoría"),
+    *                       @OA\Property(property="slug", type="string", example="ejemplo-nombre-subcategoria"),
+    *                       @OA\Property(property="image", type="string", example="https://claudiorigollet.cl/categories/celular-tablet.webp"),
+    *                       @OA\Property(property="color", type="boolean", example="1"),
+    *                       @OA\Property(property="size", type="boolean", example="0"),
+    *                       @OA\Property(property="category_id", type="number", example="1"),    
+    *                       @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *                       @OA\Property(property="created_at",type="date", example="2022-05-21T00:43:54.000000Z")
+    *                   )
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent(@OA\Property(property="message", type="string", example="SQLSTATE[HY000] [2002] No se puede establecer una conexión"),))
+    * ),
+    * @OA\Post (
+    *   path="/api/subcategories",
+    *   operationId="postSubcategory",
+    *   tags={"subcategorías"},
+    *   summary="Crear nueva subcategoría",
+    *   description="Retorna nueva subcategoría",
+    *  
+    *   @OA\RequestBody(
+    *       @OA\MediaType(
+    *           mediaType="application/json",
+    *           @OA\Schema( required={"name"}, required={"slug"},
+    *               @OA\Property(type="object",
+    *                   @OA\Property(property="name", type="string"),
+    *                   @OA\Property(property="slug", type="string"),
+    *                   @OA\Property(property="image", type="string"),
+    *                   @OA\Property(property="color", type="boolean"),
+    *                   @OA\Property(property="size", type="boolean"),
+    *                   @OA\Property(property="category_id", type="number"),
+    *                 ),
+    *                 example={
+    *                     "name":"Nombre de Categoría",
+    *                     "slug":"nombre-de-categoria",
+    *                     "image":"https://claudiorigollet.cl/categories/default.jpg",
+    *                     "color":"1",
+    *                     "size":"0",
+    *                     "category_id":"1",
+    *                }
+    *             )
+    *         )
+    *       ),
+    *       @OA\Response(
+    *          response=200,
+    *          description="success",
+    *          @OA\JsonContent(
+    *              @OA\Property(property="id", type="number", example=1),
+    *              @OA\Property(property="name", type="string", example="Nombre de Categoría"),
+    *              @OA\Property(property="slug", type="string", example="nombre-de-categoria"),
+    *              @OA\Property(property="image", type="string", example="https://claudiorigollet.cl/categories/default.jpg"),
+    *              @OA\Property(property="color", type="boolean", example="1"),
+    *              @OA\Property(property="size", type="boolean", example="0"),
+    *              @OA\Property(property="category_id", type="number", example="1"),
+    *              @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *              @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *          )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=422, description="Unprocessable Content", @OA\JsonContent(@OA\Property(property="message", type="string", example="The given data was invalid. field is required"),))
+    * ),
+    * @OA\Put (
+    *   path="/api/subcategories/{id}",
+    *   operationId="updateSubcategory",
+    *   tags={"subcategorías"},
+    *   summary="Actualiza una subcategoría por id",
+    *   description="Retorna el registro actualizado",
+    *   @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="string")),
+    *   @OA\RequestBody(
+    *       @OA\MediaType(mediaType="application/json",
+    *           @OA\Schema(
+    *               @OA\Property(type="object",
+    *                   @OA\Property(property="name", type="string"),
+    *                   @OA\Property(property="slug", type="string"),
+    *                   @OA\Property(property="image", type="string"),
+    *                   @OA\Property(property="color", type="boolean"),
+    *                   @OA\Property(property="size", type="boolean"),
+    *                   @OA\Property(property="category_id", type="number"),
+    *                 ),
+    *                 example={
+    *                     "name":"Actualiza Categoría",
+    *                     "slug":"actualiza-slug-de-categoria",
+    *                     "image":"https://claudiorigollet.cl/categories/default.jpg",
+    *                     "color":"1",
+    *                     "size":"0",
+    *                     "category_id":"1",
+    *                   }
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="name", type="string", example="Actualizar Nombre"),
+    *               @OA\Property(property="slug", type="string", example="actualizar-nombre-de-slug"),
+    *               @OA\Property(property="image", type="string", example="https://claudiorigollet.cl/categories/default.jpg"),
+    *               @OA\Property(property="color", type="boolean", example="1"),
+    *               @OA\Property(property="size", type="boolean", example="0"),
+    *               @OA\Property(property="category_id", type="number", example="1"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z")
+    *          )
+    *       ),
+    *       @OA\Response(response=400, description="Bad Request"),
+    *       @OA\Response(response=404, description="Resource Not Found")
+    *       
+    * ),
+    * @OA\Delete (
+    *   path="/api/subcategories/{id}",
+    *   operationId="deleteSubcategory",
+    *   tags={"subcategorías"},
+    *   summary="Elimina una subcategoría por id",
+    *   description="Retorna éxito de la eliminación",
+    *   @OA\Parameter(
+    *       in="path",
+    *       name="id",
+    *       required=true,
+    *       @OA\Schema(type="string")
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="success",
+    *       @OA\JsonContent(
+    *           @OA\Property(property="message", type="string", example="Subcategoría eliminada con éxito"),
+    *           @OA\Property(property="data", type="number", example="1")
+    *       )
+    *   )
+    * ),    
+    *
+    *
+    *************************************************************************************************
+    * # Ventas
+    *************************************************************************************************
+    *
+    * @OA\Get (
+    *       path="/api/sales/{id}",
+    *       operationId="getSaleById",
+    *       tags={"ventas"},
+    *       summary="Muestra una venta por id",
+    *       description="Retorna un registro por id",
+    *       @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="integer")),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="amount", type="decimal", example="45.000"),
+    *               @OA\Property(property="status", type="enum", example="('finalizado', 'anulado')"),
+    *               @OA\Property(property="product_id", type="number", example="3"),
+    *               @OA\Property(property="user_id", type="number", example="8"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *           )
+    *       ),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Producto no existe"),))
+    * ),
+    * @OA\Get (
+    *   path="/api/sales",
+    *   operationId="getSalesList",
+    *   tags={"ventas"},
+    *   summary="Listar todas las ventas",
+    *   description="Retorna lista de ventas",
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(type="array", property="sales",
+    *                   @OA\Items(type="object",
+    *                       @OA\Property(property="id", type="number", example="1"),
+    *                       @OA\Property(property="amount", type="decimal", example="45.000"),
+    *                       @OA\Property(property="status", type="enum", example="('finalizado', 'anulado')"),
+    *                       @OA\Property(property="product_id", type="number", example="3"),
+    *                       @OA\Property(property="user_id", type="number", example="8"),
+    *                       @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *                       @OA\Property(property="created_at",type="date", example="2022-05-21T00:43:54.000000Z")
+    *                   )
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent(@OA\Property(property="message", type="string", example="SQLSTATE[HY000] [2002] No se puede establecer una conexión"),))
+    * ),
+    * @OA\Post (
+    *   path="/api/sales",
+    *   operationId="postSale",
+    *   tags={"ventas"},
+    *   summary="Crear nueva venta",
+    *   description="Retorna nueva venta",
+    *  
+    *   @OA\RequestBody(
+    *       @OA\MediaType(
+    *           mediaType="application/json",
+    *           @OA\Schema( required={"amount"}, required={"status"},
+    *               @OA\Property(type="object",
+    *                   @OA\Property(property="amount", type="decimal"),
+    *                   @OA\Property(property="status", type="enum"),
+    *                   @OA\Property(property="product_id", type="number"),
+    *                   @OA\Property(property="user_id", type="number"),
+    *                 ),
+    *                 example={
+    *                     "amount":"29.990",
+    *                     "status":"finalizado",
+    *                     "product_id":"5",
+    *                     "user_id":"3",
+    *                }
+    *             )
+    *         )
+    *       ),
+    *       @OA\Response(
+    *          response=200,
+    *          description="success",
+    *          @OA\JsonContent(
+    *              @OA\Property(property="id", type="number", example=1),
+    *              @OA\Property(property="amount", type="decimal", example="29.990"),
+    *              @OA\Property(property="status", type="enum", example="finalizado"),
+    *              @OA\Property(property="product_id", type="number", example="5"),
+    *              @OA\Property(property="user_id", type="number", example="3"),
+    *              @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *              @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *          )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=422, description="Unprocessable Content", @OA\JsonContent(@OA\Property(property="message", type="string", example="The given data was invalid. field is required"),))
+    * ),
+    * @OA\Put (
+    *   path="/api/sales/{id}",
+    *   operationId="updateSale",
+    *   tags={"ventas"},
+    *   summary="Actualiza una venta por id",
+    *   description="Retorna el registro actualizado",
+    *   @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="number")),
+    *   @OA\RequestBody(
+    *       @OA\MediaType(mediaType="application/json",
+    *           @OA\Schema(
+    *               @OA\Property(type="object",
+    *                   @OA\Property(property="amount", type="decimal"),
+    *                   @OA\Property(property="status", type="enum"),
+    *                   @OA\Property(property="product_id", type="number"),
+    *                   @OA\Property(property="user_id", type="number"),
+    *                 ),
+    *                 example={
+    *                     "amount":"29.990",
+    *                     "status":"finalizado",                    
+    *                     "product_id":"5",
+    *                     "user_id":"3",
+    *                   }
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="amount", type="decimal", example="29.990"),
+    *               @OA\Property(property="status", type="enum", example="finalizado"),
+    *               @OA\Property(property="product_id", type="number", example="3"),
+    *               @OA\Property(property="user_id", type="number", example="5"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z")
+    *          )
+    *       ),
+    *       @OA\Response(response=400, description="Bad Request"),
+    *       @OA\Response(response=404, description="Resource Not Found")
+    *       
+    * ),
+    * @OA\Delete (
+    *   path="/api/sales/{id}",
+    *   operationId="deleteSale",
+    *   tags={"ventas"},
+    *   summary="Elimina una venta por id",
+    *   description="Retorna éxito de la eliminación",
+    *   @OA\Parameter(
+    *       in="path",
+    *       name="id",
+    *       required=true,
+    *       @OA\Schema(type="number")
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="success",
+    *       @OA\JsonContent(
+    *           @OA\Property(property="message", type="string", example="Venta eliminada con éxito"),
+    *           @OA\Property(property="data", type="number", example="1")
+    *       )
+    *   )
+    * ),    
+    *
+    *
+    *************************************************************************************************
+    * # Usuarios
+    *************************************************************************************************
+    *
+    * @OA\Get (
+    *       path="/api/users/{id}",
+    *       operationId="getUserById",
+    *       tags={"usuarios"},
+    *       summary="Muestra una usuario por id",
+    *       description="Retorna un registro por id",
+    *       @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="integer")),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="name", type="string", example="Cristian Vergara"),
+    *               @OA\Property(property="email", type="string", example="cris_vergara@duocuc.cl"),
+    *               @OA\Property(property="profile_photo_url", type="string", example="https://ui-avatars.com/api/?name=C+R&color=7F9CF5&background=EBF4FF"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *           )
+    *       ),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Producto no existe"),))
+    * ),
+    * @OA\Get (
+    *   path="/api/users",
+    *   operationId="getUsersList",
+    *   tags={"usuarios"},
+    *   summary="Listar todas los usuarios",
+    *   description="Retorna lista de usuarios",
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(type="array", property="users",
+    *                   @OA\Items(type="object",
+    *                       @OA\Property(property="id", type="number", example="1"),
+    *                       @OA\Property(property="name", type="string", example="Cristian Vergara"),
+    *                       @OA\Property(property="email", type="string", example="cris_vergara@duocuc.cl"),
+    *                       @OA\Property(property="profile_photo_url", type="string", example="https://ui-avatars.com/api/?name=C+R&color=7F9CF5&background=EBF4FF"),
+    *                       @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *                       @OA\Property(property="created_at",type="date", example="2022-05-21T00:43:54.000000Z")
+    *                   )
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent(@OA\Property(property="message", type="string", example="SQLSTATE[HY000] [2002] No se puede establecer una conexión"),))
+    * ),
+    * @OA\Post (
+    *   path="/api/users",
+    *   operationId="postUser",
+    *   tags={"usuarios"},
+    *   summary="Crear nuevo usuario",
+    *   description="Retorna nuevo usuario",
+    *  
+    *   @OA\RequestBody(
+    *       @OA\MediaType(
+    *           mediaType="application/json",
+    *           @OA\Schema( required={"name"}, required={"email"}, required={"password"},
+    *               @OA\Property(type="object",
+    *                   @OA\Property(property="name", type="string"),
+    *                   @OA\Property(property="email", type="string"),
+    *                   @OA\Property(property="password", type="string"),
+    *                 ),
+    *                 example={
+    *                     "name":"Cristian Vergara",
+    *                     "email":"cris_vergara@duocuc.cl",
+    *                     "password":"********",
+    *                }
+    *             )
+    *         )
+    *       ),
+    *       @OA\Response(
+    *          response=200,
+    *          description="success",
+    *          @OA\JsonContent(
+    *              @OA\Property(property="id", type="number", example=1),
+    *              @OA\Property(property="name", type="string", example="Cristian Vergara"),
+    *              @OA\Property(property="email", type="string", example="cris_vergara@duocuc.cl"),
+    *              @OA\Property(property="password", type="string", example="********"),
+    *              @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *              @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *          )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=422, description="Unprocessable Content", @OA\JsonContent(@OA\Property(property="message", type="string", example="The given data was invalid. field is required"),))
+    * ),
+    * @OA\Put (
+    *   path="/api/users/{id}",
+    *   operationId="updateUser",
+    *   tags={"usuarios"},
+    *   summary="Actualiza un usuario por id",
+    *   description="Retorna el registro actualizado",
+    *   @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="number")),
+    *   @OA\RequestBody(
+    *       @OA\MediaType(mediaType="application/json",
+    *           @OA\Schema(
+    *               @OA\Property(type="object",
+    *                   @OA\Property(property="name", type="string"),
+    *                   @OA\Property(property="email", type="string"),
+    *                   @OA\Property(property="password", type="string"),
+    *                 ),
+    *                 example={
+    *                     "name":"Cristian Vergara",
+    *                     "email":"cris_vergara@duocuc.cl",
+    *                     "password":"********",
+    *                   }
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="name", type="string", example="Cristian Vergara"),
+    *               @OA\Property(property="email", type="string", example="cris_vergara@duocuc.cl"),
+    *               @OA\Property(property="password", type="string", example="********"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z")
+    *          )
+    *       ),
+    *       @OA\Response(response=400, description="Bad Request"),
+    *       @OA\Response(response=404, description="Resource Not Found")
+    *       
+    * ),
+    * @OA\Delete (
+    *   path="/api/users/{id}",
+    *   operationId="deleteUser",
+    *   tags={"usuarios"},
+    *   summary="Elimina un usuario por id",
+    *   description="Retorna éxito de la eliminación",
+    *   @OA\Parameter(
+    *       in="path",
+    *       name="id",
+    *       required=true,
+    *       @OA\Schema(type="number")
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="success",
+    *       @OA\JsonContent(
+    *           @OA\Property(property="message", type="string", example="Usuario eliminada con éxito"),
     *           @OA\Property(property="data", type="number", example="1")
     *       )
     *   )

@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +36,21 @@ Route::get('/categories/{id}', [CategoryController::class, 'show']);
 Route::post('/categories', [CategoryController::class, 'store']);
 Route::put('/categories/{id}', [CategoryController::class, 'update']);
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
+//Public Routes Subcategorías
+Route::get('/subcategories', [SubcategoryController::class, 'index']);
+Route::get('/subcategories/{id}', [SubcategoryController::class, 'show']);
+Route::post('/subcategories', [SubcategoryController::class, 'store']);
+Route::put('/subcategories/{id}', [SubcategoryController::class, 'update']);
+Route::delete('/subcategories/{id}', [SubcategoryController::class, 'destroy']);
+//Public Routes Ventas
+Route::get('/sales', [SaleController::class, 'index']);
+Route::get('/sales/{id}', [SaleController::class, 'show']);
+Route::post('/sales', [SaleController::class, 'store']);
+Route::put('/sales/{id}', [SaleController::class, 'update']);
+Route::delete('/sales/{id}', [SaleController::class, 'destroy']);
+//Public Routes Usuarios
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/{id}', [UserController::class, 'show']);
+Route::post('/users', [UserController::class, 'store']);
+Route::put('/users/{id}', [UserController::class, 'update']);
+Route::delete('/users/{id}', [UserController::class, 'destroy']);

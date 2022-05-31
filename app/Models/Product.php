@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
     //const BORRADOR = 1;
     //const PUBLICADO = 2;
-    protected $fillable = ['name', 'slug', 'description', 'price', 'quantity'];
+    protected $fillable = ['name', 'slug', 'description', 'price', 'quantity', 'subcategory_id'];
 
 
     // Relación uno a muchos inversa, entre products y subcategories
@@ -23,5 +23,10 @@ class Product extends Model
     // En este caso el modelo Image, luego el metodo que hayamos declarado en el Modelo Image en este caso imageable(), entre comillas.
     public function images(){
         return $this->morphMany(Image::class, "imageable");
+    }
+
+    // Relación uno a muchos entre products y sales
+    public function sales(){
+        return $this->hasMany(Sale::class);
     }
 }

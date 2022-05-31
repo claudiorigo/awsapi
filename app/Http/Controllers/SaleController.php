@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sale;
 use Illuminate\Http\Request;
-use App\Models\Subcategory;
 //Exception 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class SubcategoryController extends Controller
+class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        $subcategories = Subcategory::all();
+        $sales = Sale::all();
         return response()->json([
-            "subcategories" => $subcategories         
+            "sales" => $sales         
         ],200);
     }
 
@@ -41,12 +41,11 @@ class SubcategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'slug' => 'required',
-        ]);
-        //return Subcategory::create($request->all());
-        $subcategories = Subcategory::create($request->all());
-        return response()->json($subcategories)::HTTP_CREATED;
+            'amount' => 'required',
+            'status' => 'required',
+        ]);        
+        $sale = Sale::create($request->all());
+        return response()->json($sale)::HTTP_CREATED;
     }
 
     /**
@@ -57,11 +56,12 @@ class SubcategoryController extends Controller
      */
     public function show($id)
     {
-        $subcategories = Subcategory::find($id);
-       if($subcategories){
-           return response()->json($subcategories);
+        //return Category::find($id);
+       $sale = Sale::find($id);
+       if($sale){
+           return response()->json($sale);
        }
-       return response()->json(["message"=>"Subcategoría no existe"],404);
+       return response()->json(["message"=>"Venta no existe"],404);
     }
 
     /**
@@ -85,10 +85,9 @@ class SubcategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $subcategories = Subcategory::find($id);
-            $subcategories->update($request->all());
-            //return response()->json($subcategories);
-            return response()->json(['message'=>'Subategoría actualizada con éxisto','data'=>$subcategories],200);       
+            $sale = Sale::find($id);
+            $sale->update($request->all());
+            return response()->json(['message'=>'Venta actualizada con éxisto','data'=>$sale],200);       
         }catch (ModelNotFoundException $exception){
             return response()->json(["message"=>$exception->getMessage()],404);
         }
@@ -102,8 +101,8 @@ class SubcategoryController extends Controller
      */
     public function destroy($id)
     {
-        $subcategories = Subcategory::find($id);
-        $subcategories = Subcategory::destroy($id);
-        return response()->json(['message'=>'Subcategoría eliminada con éxisto','data'=>$subcategories],200);
+        $sale = Sale::find($id);
+        $sale = Sale::destroy($id);
+        return response()->json(['message'=>'Venta eliminada con éxisto','data'=>$sale],200);
     }
 }

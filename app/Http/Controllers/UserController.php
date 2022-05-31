@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Subcategory;
 //Exception 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class SubcategoryController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        $subcategories = Subcategory::all();
+        $users = User::all();
         return response()->json([
-            "subcategories" => $subcategories         
+            "users" => $users         
         ],200);
     }
 
@@ -42,11 +42,11 @@ class SubcategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required',
-        ]);
-        //return Subcategory::create($request->all());
-        $subcategories = Subcategory::create($request->all());
-        return response()->json($subcategories)::HTTP_CREATED;
+            'email' => 'required',
+            'password' => 'required',
+        ]);        
+        $user = User::create($request->all());
+        return response()->json($user)::HTTP_CREATED;
     }
 
     /**
@@ -57,11 +57,11 @@ class SubcategoryController extends Controller
      */
     public function show($id)
     {
-        $subcategories = Subcategory::find($id);
-       if($subcategories){
-           return response()->json($subcategories);
-       }
-       return response()->json(["message"=>"Subcategoría no existe"],404);
+        $user = User::find($id);
+        if($user){
+            return response()->json($user);
+        }
+        return response()->json(["message"=>"Usuario no existe"],404);
     }
 
     /**
@@ -85,10 +85,9 @@ class SubcategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $subcategories = Subcategory::find($id);
-            $subcategories->update($request->all());
-            //return response()->json($subcategories);
-            return response()->json(['message'=>'Subategoría actualizada con éxisto','data'=>$subcategories],200);       
+            $user = User::find($id);
+            $user->update($request->all());
+            return response()->json(['message'=>'Usuario actualizado con éxisto','data'=>$user],200);       
         }catch (ModelNotFoundException $exception){
             return response()->json(["message"=>$exception->getMessage()],404);
         }
@@ -102,8 +101,8 @@ class SubcategoryController extends Controller
      */
     public function destroy($id)
     {
-        $subcategories = Subcategory::find($id);
-        $subcategories = Subcategory::destroy($id);
-        return response()->json(['message'=>'Subcategoría eliminada con éxisto','data'=>$subcategories],200);
+        $user = User::find($id);
+        $user = User::destroy($id);
+        return response()->json(['message'=>'Usuario eliminada con éxisto','data'=>$user],200);
     }
 }

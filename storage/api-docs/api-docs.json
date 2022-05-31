@@ -69,6 +69,10 @@
                                             "type": "number",
                                             "example": "45"
                                         },
+                                        "subcategory_id": {
+                                            "type": "number",
+                                            "example": "5"
+                                        },
                                         "updated_at": {
                                             "type": "string",
                                             "format": "date",
@@ -145,6 +149,9 @@
                                             },
                                             "quantity": {
                                                 "type": "number"
+                                            },
+                                            "subcategory_id": {
+                                                "type": "number"
                                             }
                                         },
                                         "type": "object"
@@ -193,6 +200,10 @@
                                         "quantity": {
                                             "type": "number",
                                             "example": "45"
+                                        },
+                                        "subcategory_id": {
+                                            "type": "number",
+                                            "example": "5"
                                         },
                                         "updated_at": {
                                             "type": "string",
@@ -299,6 +310,10 @@
                                                         "type": "number",
                                                         "example": "45"
                                                     },
+                                                    "subcategory_id": {
+                                                        "type": "number",
+                                                        "example": "5"
+                                                    },
                                                     "updated_at": {
                                                         "type": "string",
                                                         "format": "date",
@@ -378,6 +393,9 @@
                                             },
                                             "quantity": {
                                                 "type": "number"
+                                            },
+                                            "subcategory_id": {
+                                                "type": "number"
                                             }
                                         },
                                         "type": "object"
@@ -389,7 +407,8 @@
                                     "slug": "nombre-de-producto",
                                     "description": "Descripción de Producto",
                                     "price": "100.000",
-                                    "quantity": "45"
+                                    "quantity": "45",
+                                    "subcategory_id": "5"
                                 }
                             }
                         }
@@ -426,6 +445,10 @@
                                         "quantity": {
                                             "type": "number",
                                             "example": "45"
+                                        },
+                                        "subcategory_id": {
+                                            "type": "number",
+                                            "example": "5"
                                         },
                                         "updated_at": {
                                             "type": "string",
@@ -513,6 +536,10 @@
                                             "type": "number",
                                             "format": "float",
                                             "example": "1000"
+                                        },
+                                        "subcategory_id": {
+                                            "type": "number",
+                                            "example": "5"
                                         },
                                         "updated_at": {
                                             "type": "string",
@@ -933,6 +960,1299 @@
                                         "image": {
                                             "type": "string",
                                             "example": "https://claudiorigollet.cl/categories/default.jpg"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid. field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/subcategories/{id}": {
+            "get": {
+                "tags": [
+                    "subcategorías"
+                ],
+                "summary": "Muestra una subcategoría por id",
+                "description": "Retorna un registro por id",
+                "operationId": "getSubcategoryById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Nombre Subcategoría"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "nombre-subcategoría"
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "example": "https://claudiorigollet.cl/categories/celular-tablet.webp"
+                                        },
+                                        "color": {
+                                            "type": "boolean",
+                                            "example": "1"
+                                        },
+                                        "size": {
+                                            "type": "boolean",
+                                            "example": "0"
+                                        },
+                                        "category_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no existe"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "subcategorías"
+                ],
+                "summary": "Actualiza una subcategoría por id",
+                "description": "Retorna el registro actualizado",
+                "operationId": "updateSubcategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "slug": {
+                                                "type": "string"
+                                            },
+                                            "image": {
+                                                "type": "string"
+                                            },
+                                            "color": {
+                                                "type": "boolean"
+                                            },
+                                            "size": {
+                                                "type": "boolean"
+                                            },
+                                            "category_id": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Actualiza Categoría",
+                                    "slug": "actualiza-slug-de-categoria",
+                                    "image": "https://claudiorigollet.cl/categories/default.jpg",
+                                    "color": "1",
+                                    "size": "0",
+                                    "category_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Actualizar Nombre"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "actualizar-nombre-de-slug"
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "example": "https://claudiorigollet.cl/categories/default.jpg"
+                                        },
+                                        "color": {
+                                            "type": "boolean",
+                                            "example": "1"
+                                        },
+                                        "size": {
+                                            "type": "boolean",
+                                            "example": "0"
+                                        },
+                                        "category_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "subcategorías"
+                ],
+                "summary": "Elimina una subcategoría por id",
+                "description": "Retorna éxito de la eliminación",
+                "operationId": "deleteSubcategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Subcategoría eliminada con éxito"
+                                        },
+                                        "data": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/subcategories": {
+            "get": {
+                "tags": [
+                    "subcategorías"
+                ],
+                "summary": "Listar todas las subcategorías",
+                "description": "Retorna lista de subcategorías",
+                "operationId": "getSubcategoriesList",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "subcategory": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Ejemplo Nombre Subcategoría"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "ejemplo-nombre-subcategoria"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "https://claudiorigollet.cl/categories/celular-tablet.webp"
+                                                    },
+                                                    "color": {
+                                                        "type": "boolean",
+                                                        "example": "1"
+                                                    },
+                                                    "size": {
+                                                        "type": "boolean",
+                                                        "example": "0"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "SQLSTATE[HY000] [2002] No se puede establecer una conexión"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "subcategorías"
+                ],
+                "summary": "Crear nueva subcategoría",
+                "description": "Retorna nueva subcategoría",
+                "operationId": "postSubcategory",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "slug": {
+                                                "type": "string"
+                                            },
+                                            "image": {
+                                                "type": "string"
+                                            },
+                                            "color": {
+                                                "type": "boolean"
+                                            },
+                                            "size": {
+                                                "type": "boolean"
+                                            },
+                                            "category_id": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Nombre de Categoría",
+                                    "slug": "nombre-de-categoria",
+                                    "image": "https://claudiorigollet.cl/categories/default.jpg",
+                                    "color": "1",
+                                    "size": "0",
+                                    "category_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Nombre de Categoría"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "nombre-de-categoria"
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "example": "https://claudiorigollet.cl/categories/default.jpg"
+                                        },
+                                        "color": {
+                                            "type": "boolean",
+                                            "example": "1"
+                                        },
+                                        "size": {
+                                            "type": "boolean",
+                                            "example": "0"
+                                        },
+                                        "category_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid. field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sales/{id}": {
+            "get": {
+                "tags": [
+                    "ventas"
+                ],
+                "summary": "Muestra una venta por id",
+                "description": "Retorna un registro por id",
+                "operationId": "getSaleById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "amount": {
+                                            "type": "decimal",
+                                            "example": "45.000"
+                                        },
+                                        "status": {
+                                            "type": "enum",
+                                            "example": "('finalizado', 'anulado')"
+                                        },
+                                        "product_id": {
+                                            "type": "number",
+                                            "example": "3"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "8"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no existe"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ventas"
+                ],
+                "summary": "Actualiza una venta por id",
+                "description": "Retorna el registro actualizado",
+                "operationId": "updateSale",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "amount": {
+                                                "type": "decimal"
+                                            },
+                                            "status": {
+                                                "type": "enum"
+                                            },
+                                            "product_id": {
+                                                "type": "number"
+                                            },
+                                            "user_id": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "amount": "29.990",
+                                    "status": "finalizado",
+                                    "product_id": "5",
+                                    "user_id": "3"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "amount": {
+                                            "type": "decimal",
+                                            "example": "29.990"
+                                        },
+                                        "status": {
+                                            "type": "enum",
+                                            "example": "finalizado"
+                                        },
+                                        "product_id": {
+                                            "type": "number",
+                                            "example": "3"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "5"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ventas"
+                ],
+                "summary": "Elimina una venta por id",
+                "description": "Retorna éxito de la eliminación",
+                "operationId": "deleteSale",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Venta eliminada con éxito"
+                                        },
+                                        "data": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sales": {
+            "get": {
+                "tags": [
+                    "ventas"
+                ],
+                "summary": "Listar todas las ventas",
+                "description": "Retorna lista de ventas",
+                "operationId": "getSalesList",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "sales": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "amount": {
+                                                        "type": "decimal",
+                                                        "example": "45.000"
+                                                    },
+                                                    "status": {
+                                                        "type": "enum",
+                                                        "example": "('finalizado', 'anulado')"
+                                                    },
+                                                    "product_id": {
+                                                        "type": "number",
+                                                        "example": "3"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "8"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "SQLSTATE[HY000] [2002] No se puede establecer una conexión"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ventas"
+                ],
+                "summary": "Crear nueva venta",
+                "description": "Retorna nueva venta",
+                "operationId": "postSale",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "status"
+                                ],
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "amount": {
+                                                "type": "decimal"
+                                            },
+                                            "status": {
+                                                "type": "enum"
+                                            },
+                                            "product_id": {
+                                                "type": "number"
+                                            },
+                                            "user_id": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "amount": "29.990",
+                                    "status": "finalizado",
+                                    "product_id": "5",
+                                    "user_id": "3"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "amount": {
+                                            "type": "decimal",
+                                            "example": "29.990"
+                                        },
+                                        "status": {
+                                            "type": "enum",
+                                            "example": "finalizado"
+                                        },
+                                        "product_id": {
+                                            "type": "number",
+                                            "example": "5"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "3"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid. field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Muestra una usuario por id",
+                "description": "Retorna un registro por id",
+                "operationId": "getUserById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Cristian Vergara"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "cris_vergara@duocuc.cl"
+                                        },
+                                        "profile_photo_url": {
+                                            "type": "string",
+                                            "example": "https://ui-avatars.com/api/?name=C+R&color=7F9CF5&background=EBF4FF"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no existe"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Actualiza un usuario por id",
+                "description": "Retorna el registro actualizado",
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "password": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Cristian Vergara",
+                                    "email": "cris_vergara@duocuc.cl",
+                                    "password": "********"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Cristian Vergara"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "cris_vergara@duocuc.cl"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "********"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Elimina un usuario por id",
+                "description": "Retorna éxito de la eliminación",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario eliminada con éxito"
+                                        },
+                                        "data": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Listar todas los usuarios",
+                "description": "Retorna lista de usuarios",
+                "operationId": "getUsersList",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Cristian Vergara"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "cris_vergara@duocuc.cl"
+                                                    },
+                                                    "profile_photo_url": {
+                                                        "type": "string",
+                                                        "example": "https://ui-avatars.com/api/?name=C+R&color=7F9CF5&background=EBF4FF"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "SQLSTATE[HY000] [2002] No se puede establecer una conexión"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Crear nuevo usuario",
+                "description": "Retorna nuevo usuario",
+                "operationId": "postUser",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "password"
+                                ],
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "password": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Cristian Vergara",
+                                    "email": "cris_vergara@duocuc.cl",
+                                    "password": "********"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Cristian Vergara"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "cris_vergara@duocuc.cl"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "********"
                                         },
                                         "updated_at": {
                                             "type": "string",

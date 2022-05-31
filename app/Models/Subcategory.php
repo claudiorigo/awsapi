@@ -9,9 +9,9 @@ class Subcategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'image', 'color', 'size'];
+    protected $fillable = ['name', 'slug', 'image', 'color', 'size', 'category_id'];
 
-    // Relación uno a muchos
+    // Relación uno a muchos entre subcategories y products
     public function products(){
         return $this->hasMany(Product::class);
     }
