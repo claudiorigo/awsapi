@@ -43,7 +43,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            'password' => 'required',            
         ]);        
         $user = User::create($request->all());
         return response()->json($user)::HTTP_CREATED;

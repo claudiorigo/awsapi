@@ -2216,6 +2216,9 @@
                                             },
                                             "password": {
                                                 "type": "string"
+                                            },
+                                            "password_confirmation": {
+                                                "type": "string"
                                             }
                                         },
                                         "type": "object"
@@ -2225,7 +2228,8 @@
                                 "example": {
                                     "name": "Cristian Vergara",
                                     "email": "cris_vergara@duocuc.cl",
-                                    "password": "********"
+                                    "password": "********",
+                                    "password_confirmation": "********"
                                 }
                             }
                         }
@@ -2251,6 +2255,10 @@
                                             "example": "cris_vergara@duocuc.cl"
                                         },
                                         "password": {
+                                            "type": "string",
+                                            "example": "********"
+                                        },
+                                        "password_confirmation": {
                                             "type": "string",
                                             "example": "********"
                                         },

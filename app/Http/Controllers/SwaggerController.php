@@ -776,11 +776,13 @@ use Illuminate\Http\Request;
     *                   @OA\Property(property="name", type="string"),
     *                   @OA\Property(property="email", type="string"),
     *                   @OA\Property(property="password", type="string"),
+    *                   @OA\Property(property="password_confirmation", type="string"),
     *                 ),
     *                 example={
     *                     "name":"Cristian Vergara",
     *                     "email":"cris_vergara@duocuc.cl",
     *                     "password":"********",
+    *                     "password_confirmation":"********",
     *                }
     *             )
     *         )
@@ -793,6 +795,7 @@ use Illuminate\Http\Request;
     *              @OA\Property(property="name", type="string", example="Cristian Vergara"),
     *              @OA\Property(property="email", type="string", example="cris_vergara@duocuc.cl"),
     *              @OA\Property(property="password", type="string", example="********"),
+    *              @OA\Property(property="password_confirmation", type="string", example="********"),
     *              @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *              @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
     *          )

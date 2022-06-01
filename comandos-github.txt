@@ -1,6 +1,5 @@
 > git add .
-> git add -a
-> git commit -m "Tablas agregadas users, sales"
+> git commit -m "Tablas agregadas users, sales, tickets, bills"
 > git push origin
 > git push -f origin  //en caso que no funcione el anterior sin -f
 > git pull origin master //este chequear...
