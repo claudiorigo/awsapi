@@ -19,4 +19,14 @@ class Sale extends Model
     public function users(){
         return $this->belongsTo(User::class);
     }
+
+    // Relación uno a muchos entre sales y tickets
+    public function tickets(){
+        return $this->hasMany(Ticket::class);
+    }
+
+    // Relación uno a muchos entre sales y bills
+    public function bills(){
+        return $this->hasMany(Bill::class);
+    }
 }

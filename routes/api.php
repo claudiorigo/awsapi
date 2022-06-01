@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\BillController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -54,3 +56,15 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
+//Public Routes Boletas
+Route::get('/tickets', [TicketController::class, 'index']);
+Route::get('/tickets/{id}', [TicketController::class, 'show']);
+Route::post('/tickets', [TicketController::class, 'store']);
+Route::put('/tickets/{id}', [TicketController::class, 'update']);
+Route::delete('/tickets/{id}', [TicketController::class, 'destroy']);
+//Public Routes Facturas
+Route::get('/bills', [BillController::class, 'index']);
+Route::get('/bills/{id}', [BillController::class, 'show']);
+Route::post('/bills', [BillController::class, 'store']);
+Route::put('/bills/{id}', [BillController::class, 'update']);
+Route::delete('/bills/{id}', [BillController::class, 'destroy']);

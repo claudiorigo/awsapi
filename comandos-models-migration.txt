@@ -89,4 +89,19 @@ $table->string('imageable_type');
 > php artisan make:controller SaleController --resource
 * Crear el Controlador para el CRUD de usuarios.
 > php artisan make:controller UserController --resource
+---------------------------------------------------------------------------------------------------
+# Crear tabla tickets (boletas) con su modelo, factories y seeder
+> php artisan make:model Ticket -mfs
+* Crear el Controlador para la tabla boletas (tickets) y el crud
+> php artisan make:controller TicketController --resource
+---------------------------------------------------------------------------------------------------
+# Crear tabla bills (facturas)  con su modelo, factories y seeder
+> php artisan make:model Bill -mfs
+* Crear el Controlador para la tabla facturas (bills) y el crud
+> php artisan make:controller BillController --resource
+---------------------------------------------------------------------------------------------------
+* Migrar una tabla especifica
 
+---------------------------------------------------------------------------------------------------
+* Crear controlador para página de incio Welcome y pasar parametros.
+> php artisan make:controller WelcomeController

@@ -117,7 +117,7 @@ use Illuminate\Http\Request;
     *   tags={"productos"},
     *   summary="Actualiza un producto por id",
     *   description="Retorna el registro actualizado",
-    *   @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="string")),
+    *   @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="number")),
     *   @OA\RequestBody(
     *       @OA\MediaType(mediaType="application/json",
     *           @OA\Schema(
@@ -228,7 +228,7 @@ use Illuminate\Http\Request;
     *           )
     *       ),
     *       @OA\Response(response=403, description="Forbidden"),
-    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Producto no existe"),))
+    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Categoría no existe"),))
     * ),
     * @OA\Get (
     *   path="/api/categories",
@@ -393,7 +393,7 @@ use Illuminate\Http\Request;
     *           )
     *       ),
     *       @OA\Response(response=403, description="Forbidden"),
-    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Producto no existe"),))
+    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Subcategoría no existe"),))
     * ),
     * @OA\Get (
     *   path="/api/subcategories",
@@ -570,7 +570,7 @@ use Illuminate\Http\Request;
     *           )
     *       ),
     *       @OA\Response(response=403, description="Forbidden"),
-    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Producto no existe"),))
+    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Venta no existe"),))
     * ),
     * @OA\Get (
     *   path="/api/sales",
@@ -732,7 +732,7 @@ use Illuminate\Http\Request;
     *           )
     *       ),
     *       @OA\Response(response=403, description="Forbidden"),
-    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Producto no existe"),))
+    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Usuario no existe"),))
     * ),
     * @OA\Get (
     *   path="/api/users",
@@ -857,6 +857,314 @@ use Illuminate\Http\Request;
     *       description="success",
     *       @OA\JsonContent(
     *           @OA\Property(property="message", type="string", example="Usuario eliminada con éxito"),
+    *           @OA\Property(property="data", type="number", example="1")
+    *       )
+    *   )
+    * ),    
+    *
+    *************************************************************************************************
+    * # Boletas
+    *************************************************************************************************
+    *
+    * @OA\Get (
+    *       path="/api/tickets/{id}",
+    *       operationId="getTicketById",
+    *       tags={"boletas"},
+    *       summary="Muestra una boleta por id",
+    *       description="Retorna un registro por id",
+    *       @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="integer")),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="ticket_amount", type="number", example="82.200"),
+    *               @OA\Property(property="nro_ticket", type="interger", example="1195183"),
+    *               @OA\Property(property="sale_id", type="number", example="7"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *           )
+    *       ),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Boleta no existe"),))
+    * ),
+    * @OA\Get (
+    *   path="/api/tickets",
+    *   operationId="getTicketsList",
+    *   tags={"boletas"},
+    *   summary="Listar todas las boletas",
+    *   description="Retorna lista de boletas",
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(type="array", property="tickets",
+    *                   @OA\Items(type="object",
+    *                       @OA\Property(property="id", type="number", example="1"),
+    *                       @OA\Property(property="ticket_amount", type="number", example="82.200"),
+    *                       @OA\Property(property="nro_ticket", type="interger", example="1195183"),
+    *                       @OA\Property(property="sale_id", type="number", example="7"),
+    *                       @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *                       @OA\Property(property="created_at",type="date", example="2022-05-21T00:43:54.000000Z")
+    *                   )
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent(@OA\Property(property="message", type="string", example="SQLSTATE[HY000] [2002] No se puede establecer una conexión"),))
+    * ),
+    * @OA\Post (
+    *   path="/api/tickets",
+    *   operationId="postTicket",
+    *   tags={"boletas"},
+    *   summary="Crear nueva boleta",
+    *   description="Retorna nueva boleta",
+    *  
+    *   @OA\RequestBody(
+    *       @OA\MediaType(
+    *           mediaType="application/json",
+    *           @OA\Schema( required={"ticket_amount"}, required={"nro_ticket"},
+    *               @OA\Property(type="object",
+    *                   @OA\Property(property="ticket_amount", type="number"),
+    *                   @OA\Property(property="nro_ticket", type="interger"),
+    *                   @OA\Property(property="sale_id", type="number"),
+    *                 ),
+    *                 example={
+    *                     "ticket_amount":"82.200",
+    *                     "nro_ticket":"1195183",
+    *                     "sale_id":"7",
+    *                }
+    *             )
+    *         )
+    *       ),
+    *       @OA\Response(
+    *          response=200,
+    *          description="success",
+    *          @OA\JsonContent(
+    *              @OA\Property(property="id", type="number", example=1),
+    *              @OA\Property(property="ticket_amount", type="number", example="82.200"),
+    *              @OA\Property(property="nro_ticket", type="interger", example="1195183"),
+    *              @OA\Property(property="sale_id", type="number", example="7"),
+    *              @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *              @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *          )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=422, description="Unprocessable Content", @OA\JsonContent(@OA\Property(property="message", type="string", example="The given data was invalid. field is required"),))
+    * ),
+    * @OA\Put (
+    *   path="/api/tickets/{id}",
+    *   operationId="updateTicket",
+    *   tags={"boletas"},
+    *   summary="Actualiza un usuario por id",
+    *   description="Retorna el registro actualizado",
+    *   @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="number")),
+    *   @OA\RequestBody(
+    *       @OA\MediaType(mediaType="application/json",
+    *           @OA\Schema(
+    *               @OA\Property(type="object",
+    *                   @OA\Property(property="ticket_amount", type="number"),
+    *                   @OA\Property(property="nro_ticket", type="interger"),
+    *                   @OA\Property(property="sale_id", type="number"),
+    *                 ),
+    *                 example={
+    *                     "ticket_amount":"82.200",
+    *                     "nro_ticket":"1195183",
+    *                     "sale_id":"7",
+    *                   }
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="ticket_amount", type="number", example="82.200"),
+    *               @OA\Property(property="nro_ticket", type="interger", example="1195183"),
+    *               @OA\Property(property="sale_id", type="number", example="7"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z")
+    *          )
+    *       ),
+    *       @OA\Response(response=400, description="Bad Request"),
+    *       @OA\Response(response=404, description="Resource Not Found")
+    *       
+    * ),
+    * @OA\Delete (
+    *   path="/api/tickets/{id}",
+    *   operationId="deleteTicket",
+    *   tags={"boletas"},
+    *   summary="Elimina una boleta por id",
+    *   description="Retorna éxito de la eliminación",
+    *   @OA\Parameter(
+    *       in="path",
+    *       name="id",
+    *       required=true,
+    *       @OA\Schema(type="number")
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="success",
+    *       @OA\JsonContent(
+    *           @OA\Property(property="message", type="string", example="Boleta eliminada con éxito"),
+    *           @OA\Property(property="data", type="number", example="1")
+    *       )
+    *   )
+    * ),    
+    *
+    *************************************************************************************************
+    * # Facturas
+    *************************************************************************************************
+    *
+    * @OA\Get (
+    *       path="/api/bills/{id}",
+    *       operationId="getBillById",
+    *       tags={"facturas"},
+    *       summary="Muestra una factura por id",
+    *       description="Retorna un registro por id",
+    *       @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="integer")),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="bill_amount", type="number", example="76.900"),
+    *               @OA\Property(property="nro_bill", type="interger", example="5784233"),
+    *               @OA\Property(property="sale_id", type="number", example="2"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *           )
+    *       ),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=404, description="Not Found", @OA\JsonContent(@OA\Property(property="message", type="string", example="Factura no existe"),))
+    * ),
+    * @OA\Get (
+    *   path="/api/bills",
+    *   operationId="getBillsList",
+    *   tags={"facturas"},
+    *   summary="Listar todas las facturas",
+    *   description="Retorna lista de facturas",
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(type="array", property="bills",
+    *                   @OA\Items(type="object",
+    *                       @OA\Property(property="id", type="number", example="1"),
+    *                       @OA\Property(property="bill_amount", type="number", example="76.900"),
+    *                       @OA\Property(property="nro_bill", type="interger", example="5784233"),
+    *                       @OA\Property(property="sale_id", type="number", example="2"),
+    *                       @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *                       @OA\Property(property="created_at",type="date", example="2022-05-21T00:43:54.000000Z")
+    *                   )
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=403, description="Forbidden"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent(@OA\Property(property="message", type="string", example="SQLSTATE[HY000] [2002] No se puede establecer una conexión"),))
+    * ),
+    * @OA\Post (
+    *   path="/api/bills",
+    *   operationId="postBill",
+    *   tags={"facturas"},
+    *   summary="Crear nueva factura",
+    *   description="Retorna nueva factura",
+    *  
+    *   @OA\RequestBody(
+    *       @OA\MediaType(
+    *           mediaType="application/json",
+    *           @OA\Schema( required={"bill_amount"}, required={"nro_bill"},
+    *               @OA\Property(type="object",
+    *               @OA\Property(property="bill_amount", type="number"),
+    *               @OA\Property(property="nro_bill", type="interger"),
+    *               @OA\Property(property="sale_id", type="number"),
+    *                 ),
+    *                 example={
+    *                     "bill_amount":"76.900",
+    *                     "nro_bill":"5784233",
+    *                     "sale_id":"2",
+    *                }
+    *             )
+    *         )
+    *       ),
+    *       @OA\Response(
+    *          response=200,
+    *          description="success",
+    *          @OA\JsonContent(
+    *              @OA\Property(property="id", type="number", example=1),
+    *              @OA\Property(property="bill_amount", type="number", example="76.900"),
+    *              @OA\Property(property="nro_bill", type="interger", example="5784233"),
+    *              @OA\Property(property="sale_id", type="number", example="2"),
+    *              @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *              @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *          )
+    *       ),
+    *       @OA\Response(response=401, description="Unauthenticated"),
+    *       @OA\Response(response=400, description="Invalid"),
+    *       @OA\Response(response=422, description="Unprocessable Content", @OA\JsonContent(@OA\Property(property="message", type="string", example="The given data was invalid. field is required"),))
+    * ),
+    * @OA\Put (
+    *   path="/api/bills/{id}",
+    *   operationId="updateBill",
+    *   tags={"facturas"},
+    *   summary="Actualiza un factura por id",
+    *   description="Retorna el registro actualizado",
+    *   @OA\Parameter(in="path", name="id", required=true, @OA\Schema(type="number")),
+    *   @OA\RequestBody(
+    *       @OA\MediaType(mediaType="application/json",
+    *           @OA\Schema(
+    *               @OA\Property(type="object",
+    *                   @OA\Property(property="bill_amount", type="number"),
+    *                   @OA\Property(property="nro_bill", type="interger"),
+    *                   @OA\Property(property="sale_id", type="number"),
+    *                 ),
+    *                 example={
+    *                     "bill_amount":"76.900",
+    *                     "nro_bill":"5784233",
+    *                     "sale_id":"2",
+    *                   }
+    *               )
+    *           )
+    *       ),
+    *       @OA\Response(
+    *           response=200,
+    *           description="success",
+    *           @OA\JsonContent(
+    *               @OA\Property(property="id", type="number", example=1),
+    *               @OA\Property(property="bill_amount", type="number", example="76.900"),
+    *               @OA\Property(property="nro_bill", type="interger", example="5784233"),
+    *               @OA\Property(property="sale_id", type="number", example="2"),
+    *               @OA\Property(property="updated_at", type="date", example="2022-05-21T00:43:54.000000Z"),
+    *               @OA\Property(property="created_at", type="date", example="2022-05-21T00:43:54.000000Z")
+    *          )
+    *       ),
+    *       @OA\Response(response=400, description="Bad Request"),
+    *       @OA\Response(response=404, description="Resource Not Found")
+    *       
+    * ),
+    * @OA\Delete (
+    *   path="/api/bills/{id}",
+    *   operationId="deleteBill",
+    *   tags={"facturas"},
+    *   summary="Elimina una factura por id",
+    *   description="Retorna éxito de la eliminación",
+    *   @OA\Parameter(
+    *       in="path",
+    *       name="id",
+    *       required=true,
+    *       @OA\Schema(type="number")
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="success",
+    *       @OA\JsonContent(
+    *           @OA\Property(property="message", type="string", example="Factura eliminada con éxito"),
     *           @OA\Property(property="data", type="number", example="1")
     *       )
     *   )

@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
-use Illuminate\Database\Seeder;
 use App\Models\Sale;
+use App\Models\Bill;
+use Illuminate\Database\Seeder;
+use App\Models\Ticket;
 use GuzzleHttp\Promise\Create;
 
 class SaleSeeder extends Seeder
@@ -16,6 +17,16 @@ class SaleSeeder extends Seeder
      */
     public function run()
     {
-        Sale::factory(50)->create();
+        Sale::factory(50)->create()->each(function(Sale $sale){
+            Ticket::factory(1)->create([                
+                'ticket_amount' => $sale->amount,
+                'sale_id' => $sale->id,
+            ]);            
+        })->each(function(Sale $sale){
+            Bill::factory(1)->create([                
+                'bill_amount' => $sale->amount,
+                'sale_id' => $sale->id,
+            ]);
+        });
     }
 }

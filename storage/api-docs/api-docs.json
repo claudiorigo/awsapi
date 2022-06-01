@@ -123,7 +123,7 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "number"
                         }
                     }
                 ],
@@ -651,7 +651,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Producto no existe"
+                                            "example": "Categoría no existe"
                                         }
                                     },
                                     "type": "object"
@@ -1082,7 +1082,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Producto no existe"
+                                            "example": "Subcategoría no existe"
                                         }
                                     },
                                     "type": "object"
@@ -1545,7 +1545,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Producto no existe"
+                                            "example": "Venta no existe"
                                         }
                                     },
                                     "type": "object"
@@ -1964,7 +1964,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Producto no existe"
+                                            "example": "Usuario no existe"
                                         }
                                     },
                                     "type": "object"
@@ -2253,6 +2253,804 @@
                                         "password": {
                                             "type": "string",
                                             "example": "********"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid. field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tickets/{id}": {
+            "get": {
+                "tags": [
+                    "boletas"
+                ],
+                "summary": "Muestra una boleta por id",
+                "description": "Retorna un registro por id",
+                "operationId": "getTicketById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "ticket_amount": {
+                                            "type": "number",
+                                            "example": "82.200"
+                                        },
+                                        "nro_ticket": {
+                                            "type": "interger",
+                                            "example": "1195183"
+                                        },
+                                        "sale_id": {
+                                            "type": "number",
+                                            "example": "7"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Boleta no existe"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "boletas"
+                ],
+                "summary": "Actualiza un usuario por id",
+                "description": "Retorna el registro actualizado",
+                "operationId": "updateTicket",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "ticket_amount": {
+                                                "type": "number"
+                                            },
+                                            "nro_ticket": {
+                                                "type": "interger"
+                                            },
+                                            "sale_id": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "ticket_amount": "82.200",
+                                    "nro_ticket": "1195183",
+                                    "sale_id": "7"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "ticket_amount": {
+                                            "type": "number",
+                                            "example": "82.200"
+                                        },
+                                        "nro_ticket": {
+                                            "type": "interger",
+                                            "example": "1195183"
+                                        },
+                                        "sale_id": {
+                                            "type": "number",
+                                            "example": "7"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "boletas"
+                ],
+                "summary": "Elimina una boleta por id",
+                "description": "Retorna éxito de la eliminación",
+                "operationId": "deleteTicket",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Boleta eliminada con éxito"
+                                        },
+                                        "data": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tickets": {
+            "get": {
+                "tags": [
+                    "boletas"
+                ],
+                "summary": "Listar todas las boletas",
+                "description": "Retorna lista de boletas",
+                "operationId": "getTicketsList",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "tickets": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "ticket_amount": {
+                                                        "type": "number",
+                                                        "example": "82.200"
+                                                    },
+                                                    "nro_ticket": {
+                                                        "type": "interger",
+                                                        "example": "1195183"
+                                                    },
+                                                    "sale_id": {
+                                                        "type": "number",
+                                                        "example": "7"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "SQLSTATE[HY000] [2002] No se puede establecer una conexión"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "boletas"
+                ],
+                "summary": "Crear nueva boleta",
+                "description": "Retorna nueva boleta",
+                "operationId": "postTicket",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nro_ticket"
+                                ],
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "ticket_amount": {
+                                                "type": "number"
+                                            },
+                                            "nro_ticket": {
+                                                "type": "interger"
+                                            },
+                                            "sale_id": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "ticket_amount": "82.200",
+                                    "nro_ticket": "1195183",
+                                    "sale_id": "7"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "ticket_amount": {
+                                            "type": "number",
+                                            "example": "82.200"
+                                        },
+                                        "nro_ticket": {
+                                            "type": "interger",
+                                            "example": "1195183"
+                                        },
+                                        "sale_id": {
+                                            "type": "number",
+                                            "example": "7"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid. field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bills/{id}": {
+            "get": {
+                "tags": [
+                    "facturas"
+                ],
+                "summary": "Muestra una factura por id",
+                "description": "Retorna un registro por id",
+                "operationId": "getBillById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "bill_amount": {
+                                            "type": "number",
+                                            "example": "76.900"
+                                        },
+                                        "nro_bill": {
+                                            "type": "interger",
+                                            "example": "5784233"
+                                        },
+                                        "sale_id": {
+                                            "type": "number",
+                                            "example": "2"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Factura no existe"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "facturas"
+                ],
+                "summary": "Actualiza un factura por id",
+                "description": "Retorna el registro actualizado",
+                "operationId": "updateBill",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "bill_amount": {
+                                                "type": "number"
+                                            },
+                                            "nro_bill": {
+                                                "type": "interger"
+                                            },
+                                            "sale_id": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "bill_amount": "76.900",
+                                    "nro_bill": "5784233",
+                                    "sale_id": "2"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "bill_amount": {
+                                            "type": "number",
+                                            "example": "76.900"
+                                        },
+                                        "nro_bill": {
+                                            "type": "interger",
+                                            "example": "5784233"
+                                        },
+                                        "sale_id": {
+                                            "type": "number",
+                                            "example": "2"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2022-05-21T00:43:54.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "facturas"
+                ],
+                "summary": "Elimina una factura por id",
+                "description": "Retorna éxito de la eliminación",
+                "operationId": "deleteBill",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Factura eliminada con éxito"
+                                        },
+                                        "data": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bills": {
+            "get": {
+                "tags": [
+                    "facturas"
+                ],
+                "summary": "Listar todas las facturas",
+                "description": "Retorna lista de facturas",
+                "operationId": "getBillsList",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "bills": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "bill_amount": {
+                                                        "type": "number",
+                                                        "example": "76.900"
+                                                    },
+                                                    "nro_bill": {
+                                                        "type": "interger",
+                                                        "example": "5784233"
+                                                    },
+                                                    "sale_id": {
+                                                        "type": "number",
+                                                        "example": "2"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2022-05-21T00:43:54.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Invalid"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "SQLSTATE[HY000] [2002] No se puede establecer una conexión"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "facturas"
+                ],
+                "summary": "Crear nueva factura",
+                "description": "Retorna nueva factura",
+                "operationId": "postBill",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nro_bill"
+                                ],
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "bill_amount": {
+                                                "type": "number"
+                                            },
+                                            "nro_bill": {
+                                                "type": "interger"
+                                            },
+                                            "sale_id": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "bill_amount": "76.900",
+                                    "nro_bill": "5784233",
+                                    "sale_id": "2"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "bill_amount": {
+                                            "type": "number",
+                                            "example": "76.900"
+                                        },
+                                        "nro_bill": {
+                                            "type": "interger",
+                                            "example": "5784233"
+                                        },
+                                        "sale_id": {
+                                            "type": "number",
+                                            "example": "2"
                                         },
                                         "updated_at": {
                                             "type": "string",
