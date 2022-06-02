@@ -105,3 +105,6 @@ $table->string('imageable_type');
 ---------------------------------------------------------------------------------------------------
 * Crear controlador para página de incio Welcome y pasar parametros.
 > php artisan make:controller WelcomeController
+
+* Crear controlador para página ya logeado Dashboard y pasar parametros de crud products.
+> php artisan make:controller DashboardController

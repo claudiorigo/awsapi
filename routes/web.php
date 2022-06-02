@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Livewire\Admin\ShowProducts;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
+    
+    Route::get('/dashboard', ShowProducts::class)->name('dashboard');
+    //Route::get('/products/{product}/edit', [ShowProducts::class, 'update'])->name('dashboard.products.edit');
+    //Route::get('/dashboard/{id}', [ShowProducts::class, 'destroy'])->name('dashboard.products.destroy');
 });

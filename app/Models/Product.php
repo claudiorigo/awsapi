@@ -29,4 +29,10 @@ class Product extends Model
     public function sales(){
         return $this->hasMany(Sale::class);
     }
+
+    //URL AMIGABLES CON EL SLUG
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

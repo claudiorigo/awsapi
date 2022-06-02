@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Livewire\Admin;
+
+use Illuminate\Http\Request;
+use App\Models\Product;
+use Livewire\Component;
+
+class ShowProducts extends Component{
+
+    public $search;
+
+    public function render()
+    {
+        $products = Product::where('name', 'like', '%' . $this->search . '%')->paginate(10);
+
+        return view('dashboard', compact('products')); 
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request,Product $product)
+    {
+        $product = Product::find($product);
+        $product->update($request->all());
+        return $product;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //Product::destroy($id);
+        //return view('dashboard');
+        $product = Product::find($id);
+        $product = Product::destroy($id);
+        return view('dashboard');
+    }
+
+}
